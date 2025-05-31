@@ -5,7 +5,6 @@ import type {
   HabitInsert,
   HabitUpdate,
   HabitCompletion,
-  HabitCompletionInsert,
   HabitWithCompletions,
 } from "../types/database";
 

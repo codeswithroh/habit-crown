@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRewards } from "../../hooks/useRewards";
 import type { Reward } from "../../types/database";

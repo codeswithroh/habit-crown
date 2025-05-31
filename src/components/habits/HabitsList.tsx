@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { HabitWithCompletions } from "../../types/database";
 import { useHabits } from "../../hooks/useHabits";
 import { HabitForm } from "./HabitForm";
-import { CheckCircle, Circle, Edit, Trash2, Plus } from "lucide-react";
+import { CheckCircle, Circle, Edit, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
