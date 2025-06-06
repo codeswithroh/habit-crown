@@ -79,7 +79,7 @@ export const Dashboard = () => {
     <div className="space-y-8">
       {/* Tab Navigation */}
       <motion.div 
-        className="flex items-center justify-between"
+        className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
