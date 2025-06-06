@@ -15,6 +15,7 @@ import {
   ChevronDown,
   Coffee,
   Sparkles,
+  Cookie,
   Star
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -125,7 +126,7 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-3 gap-2">
                 <motion.h3 
-                  className="text-lg sm:text-xl font-bold text-amber-900 flex items-center truncate"
+                  className="text-lg sm:text-xl font-bold text-amber-900 flex items-center min-w-0 flex-1"
                   whileHover={{ scale: 1.02 }}
                 >
                   <motion.div
@@ -135,9 +136,11 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                   >
                     <Coffee className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
                   </motion.div>
-                  <span className="truncate">{reward.title}</span>
+                  <span className="break-words leading-relaxed">{reward.title}</span>
                 </motion.h3>
-                {getStatusBadge()}
+                <div className="flex-shrink-0">
+                  {getStatusBadge()}
+                </div>
               </div>
               {reward.description && (
                 <motion.p 
@@ -346,7 +349,26 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                       <HabitsList habits={habits} disabled={reward.is_claimed} />
                     </div>
 
-                      <motion.button
+                    {!showHabitForm && habits.length === 0 && !reward.is_claimed && (
+                      <motion.div 
+                        className="text-center py-6 sm:py-8"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <motion.div
+                          animate={{ 
+                            rotate: [0, 10, -10, 0],
+                            scale: [1, 1.05, 1]
+                          }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-4 shadow-lg"
+                        >
+                          <Cookie className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
+                        </motion.div>
+                        <p className="text-amber-700 text-sm mb-4">
+                          No habits brewing yet! Add your first habit to start earning points.
+                        </p>
+                        <motion.button
                           onClick={() => setShowHabitForm(true)}
                           whileHover={{ scale: 1.05, y: -2 }}
                           whileTap={{ scale: 0.95 }}
@@ -356,6 +378,8 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                           <span>Brew Your First Habit</span>
                           <Sparkles className="h-4 w-4" />
                         </motion.button>
+                      </motion.div>
+                    )}
                   </div>
                 </motion.div>
               )}
