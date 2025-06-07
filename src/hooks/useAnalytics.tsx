@@ -5,25 +5,25 @@ export const useAnalytics = () => {
   const dailyStatsQuery = useQuery({
     queryKey: ["analytics", "daily"],
     queryFn: () => analyticsService.getDailyStats(30),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
   });
 
   const weeklyStatsQuery = useQuery({
     queryKey: ["analytics", "weekly"],
     queryFn: () => analyticsService.getWeeklyStats(8),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
   });
 
   const streakQuery = useQuery({
     queryKey: ["analytics", "streak"],
     queryFn: analyticsService.getStreakData,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
   });
 
   const rewardOverviewQuery = useQuery({
     queryKey: ["analytics", "rewards"],
     queryFn: analyticsService.getRewardOverview,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
   });
 
   return {

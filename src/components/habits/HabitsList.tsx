@@ -133,7 +133,7 @@ export const HabitsList = ({ habits, disabled = false }: HabitsListProps) => {
                         ? "text-green-600"
                         : disabled
                         ? "text-gray-300 cursor-not-allowed"
-                        : "text-amber-400 hover:text-green-500"
+                        : "text-amber-400 hover:text-green-500 cursor-pointer"
                     }`}
                   >
                     {habit.completions_today > 0 ? (
@@ -187,7 +187,7 @@ export const HabitsList = ({ habits, disabled = false }: HabitsListProps) => {
                       onClick={() => setEditingHabit(habit.id)}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="p-2 text-amber-400 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg transition-all duration-300"
+                      className="p-2 text-amber-400 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg transition-all duration-300 cursor-pointer"
                       title="Edit recipe"
                     >
                       <Edit className="h-4 w-4" />
@@ -197,7 +197,7 @@ export const HabitsList = ({ habits, disabled = false }: HabitsListProps) => {
                       disabled={isDeleting}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="p-2 text-amber-400 hover:text-red-500 hover:bg-red-100/50 rounded-lg transition-all duration-300 disabled:opacity-50"
+                      className="p-2 text-amber-400 hover:text-red-500 hover:bg-red-100/50 rounded-lg transition-all duration-300 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                       title="Remove from menu"
                     >
                       <Trash2 className="h-4 w-4" />

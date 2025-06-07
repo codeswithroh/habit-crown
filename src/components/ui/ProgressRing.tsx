@@ -3,6 +3,7 @@ interface ProgressRingProps {
   size?: number;
   strokeWidth?: number;
   className?: string;
+  showText?: boolean;
 }
 
 export const ProgressRing = ({
@@ -10,6 +11,7 @@ export const ProgressRing = ({
   size = 80,
   strokeWidth = 6,
   className = "text-purple-500",
+  showText = true,
 }: ProgressRingProps) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
@@ -40,11 +42,13 @@ export const ProgressRing = ({
           className={`transition-all duration-500 ease-out ${className}`}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-sm font-bold text-gray-700">
-          {Math.round(progress)}%
-        </span>
-      </div>
+      {showText && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-sm font-bold text-gray-700">
+            {Math.round(progress)}%
+          </span>
+        </div>
+      )}
     </div>
   );
 };

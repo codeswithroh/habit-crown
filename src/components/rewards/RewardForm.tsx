@@ -118,7 +118,7 @@ export const RewardForm = ({ onClose, reward }: RewardFormProps) => {
           onClick={onClose}
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.95 }}
-          className="p-2 hover:bg-amber-100/50 rounded-xl transition-all duration-300 text-amber-600"
+          className="p-2 hover:bg-amber-100/50 rounded-xl transition-all duration-300 text-amber-600 cursor-pointer"
         >
           <X className="h-6 w-6" />
         </motion.button>
@@ -210,7 +210,7 @@ export const RewardForm = ({ onClose, reward }: RewardFormProps) => {
             disabled={isLoading}
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="flex-1 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 disabled:from-gray-300 disabled:via-gray-400 disabled:to-gray-300 text-white py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:cursor-not-allowed relative overflow-hidden"
+            className="flex-1 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 disabled:from-gray-300 disabled:via-gray-400 disabled:to-gray-300 text-white py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:cursor-not-allowed cursor-pointer relative overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {isLoading ? (
@@ -273,7 +273,7 @@ export const RewardForm = ({ onClose, reward }: RewardFormProps) => {
             onClick={onClose}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-amber-300/60 text-amber-700 rounded-2xl hover:bg-amber-50/50 transition-all duration-300 font-semibold"
+            className="px-8 py-4 border-2 border-amber-300/60 text-amber-700 rounded-2xl hover:bg-amber-50/50 transition-all duration-300 font-semibold cursor-pointer"
           >
             Cancel
           </motion.button>

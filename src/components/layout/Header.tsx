@@ -127,7 +127,7 @@ export const Header = () => {
               onHoverEnd={() => setIsHovered(false)}
               whileHover={{ scale: 1.05, rotate: 2 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative flex items-center space-x-2 px-4 py-2 bg-amber-200/60 hover:bg-amber-300/80 text-amber-800 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border border-amber-300/50"
+              className="group relative flex items-center space-x-2 px-4 py-2 bg-amber-200/60 hover:bg-amber-300/80 text-amber-800 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border border-amber-300/50 cursor-pointer"
             >
               <motion.div
                 animate={isHovered ? { rotate: [0, 10, -10, 0] } : {}}

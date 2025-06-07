@@ -86,6 +86,7 @@ export const useRewards = () => {
     mutationFn: rewardsService.createReward,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rewards"] });
+      queryClient.invalidateQueries({ queryKey: ["analytics"] });
     },
   });
 
@@ -101,6 +102,7 @@ export const useRewards = () => {
     mutationFn: rewardsService.deleteReward,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rewards"] });
+      queryClient.invalidateQueries({ queryKey: ["analytics"] });
     },
   });
 
@@ -108,6 +110,7 @@ export const useRewards = () => {
     mutationFn: rewardsService.claimReward,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rewards"] });
+      queryClient.invalidateQueries({ queryKey: ["analytics"] });
     },
   });
 

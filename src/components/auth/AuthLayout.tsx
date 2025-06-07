@@ -156,7 +156,7 @@ export const AuthLayout: React.FC = () => {
                 ].map((feature, index) => (
                   <motion.div
                     key={feature.title}
-                    className={`text-center p-6 bg-gradient-to-br from-${feature.color}-100/70 to-${feature.color}-200/70 backdrop-blur-sm rounded-2xl border border-${feature.color}-200/50 shadow-lg`}
+                    className="text-center p-6 bg-gradient-to-br from-amber-100/70 to-amber-200/70 backdrop-blur-sm rounded-2xl border border-amber-200/50 shadow-lg"
                     whileHover={{ 
                       scale: 1.05, 
                       rotate: index % 2 === 0 ? 2 : -2,

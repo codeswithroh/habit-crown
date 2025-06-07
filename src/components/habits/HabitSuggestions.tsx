@@ -127,7 +127,7 @@ export const HabitSuggestions = ({
               stiffness: 300,
               damping: 25
             }}
-            className="w-full text-left p-4 text-sm bg-gradient-to-r from-white/90 to-amber-50/60 hover:from-amber-50/80 hover:to-orange-50/80 border-2 border-amber-200/50 hover:border-amber-300/70 rounded-xl transition-all duration-300 group relative overflow-hidden"
+            className="w-full text-left p-4 text-sm bg-gradient-to-r from-white/90 to-amber-50/60 hover:from-amber-50/80 hover:to-orange-50/80 border-2 border-amber-200/50 hover:border-amber-300/70 rounded-xl transition-all duration-300 group relative overflow-hidden cursor-pointer"
           >
             <div className="flex items-center relative z-10">
               <motion.span

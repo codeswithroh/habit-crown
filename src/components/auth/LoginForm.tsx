@@ -159,7 +159,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
             <motion.button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-amber-600 hover:text-amber-800 transition-colors"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-amber-600 hover:text-amber-800 transition-colors cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -172,7 +172,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
         <motion.button
           type="submit"
           disabled={loading}
-          className="group relative w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+          className="group relative w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
           whileHover={{ scale: 1.02, y: -2 }}
           whileTap={{ scale: 0.98 }}
           animate={loading ? { opacity: 0.7 } : { opacity: 1 }}
@@ -236,7 +236,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
       >
         <motion.button
           onClick={onSwitchToSignUp}
-          className="text-amber-600 hover:text-amber-800 font-medium transition-colors relative group"
+          className="text-amber-600 hover:text-amber-800 font-medium transition-colors relative group cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -252,7 +252,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp }) => {
         </motion.button>
 
         <motion.button 
-          className="block text-sm text-amber-500 hover:text-amber-700 transition-colors mx-auto"
+          className="block text-sm text-amber-500 hover:text-amber-700 transition-colors mx-auto cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

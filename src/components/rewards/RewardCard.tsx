@@ -72,34 +72,6 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
     return "border-amber-200/40 hover:border-amber-300/60 hover:shadow-lg bg-gradient-to-br from-white/90 to-amber-50/30";
   };
 
-  const getStatusBadge = () => {
-    if (canClaim) {
-      return (
-        <motion.div 
-          className="flex items-center bg-gradient-to-r from-amber-400 to-orange-400 text-white px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium shadow-md"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Gift className="h-3 w-3 mr-1" />
-          </motion.div>
-          <span className="hidden sm:inline">Ready to Savor!</span>
-          <span className="sm:hidden">Ready!</span>
-        </motion.div>
-      );
-    }
-    return (
-      <div className="flex items-center bg-gradient-to-r from-orange-400/80 to-amber-400/80 text-white px-2 sm:px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
-        <Coffee className="h-3 w-3 mr-1" />
-        <span className="hidden sm:inline">Brewing...</span>
-        <span className="sm:hidden">...</span>
-      </div>
-    );
-  };
-
   return (
     <>
       <motion.div
@@ -138,9 +110,6 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                   </motion.div>
                   <span className="break-words leading-relaxed">{reward.title}</span>
                 </motion.h3>
-                <div className="flex-shrink-0">
-                  {getStatusBadge()}
-                </div>
               </div>
               {reward.description && (
                 <motion.p 
@@ -266,13 +235,13 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
           )}
 
           <div className="space-y-4">
-            <motion.button
-              onClick={toggleHabitsExpanded}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="flex items-center justify-between w-full text-left group"
-            >
-              <div className="flex items-center space-x-3">
+            <div className="flex items-center justify-between w-full">
+              <motion.button
+                onClick={toggleHabitsExpanded}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className="flex items-center space-x-3 text-left group flex-1 cursor-pointer"
+              >
                 <motion.div
                   animate={{ rotate: [0, 5, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -292,18 +261,15 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                     ({habits.length})
                   </motion.span>
                 </div>
-              </div>
+              </motion.button>
               
               <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
                 {!reward.is_claimed && isHabitsExpanded && (
                   <motion.button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowHabitForm(true);
-                    }}
+                    onClick={() => setShowHabitForm(true)}
                     whileHover={{ scale: 1.05, rotate: 90 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-amber-300 to-orange-300 hover:from-amber-400 hover:to-orange-400 text-amber-800 hover:text-white px-2 sm:px-3 py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 shadow-md"
+                    className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-amber-300 to-orange-300 hover:from-amber-400 hover:to-orange-400 text-amber-800 hover:text-white px-2 sm:px-3 py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 shadow-md cursor-pointer"
                   >
                     <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                     <span className="hidden sm:inline">Add Habit</span>
@@ -311,14 +277,21 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                   </motion.button>
                 )}
                 
-                <motion.div
-                  animate={{ rotate: isHabitsExpanded ? 180 : 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                <motion.button
+                  onClick={toggleHabitsExpanded}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-1 rounded-lg hover:bg-amber-100/50 transition-colors cursor-pointer"
                 >
-                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 group-hover:text-amber-800 transition-colors" />
-                </motion.div>
+                  <motion.div
+                    animate={{ rotate: isHabitsExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 hover:text-amber-800 transition-colors" />
+                  </motion.div>
+                </motion.button>
               </div>
-            </motion.button>
+            </div>
 
             <AnimatePresence>
               {isHabitsExpanded && (

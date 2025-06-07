@@ -89,7 +89,7 @@ export const Dashboard = () => {
             onClick={() => setActiveTab("rewards")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
               activeTab === "rewards"
                 ? "bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
                 : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"
@@ -115,7 +115,7 @@ export const Dashboard = () => {
             onClick={() => setActiveTab("analytics")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
               activeTab === "analytics"
                 ? "bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
                 : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"
@@ -141,7 +141,7 @@ export const Dashboard = () => {
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="group relative flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white px-6 py-3 rounded-2xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="group relative flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white px-6 py-3 rounded-2xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
           >
             <motion.div
               animate={{ rotate: [0, 90, 0] }}

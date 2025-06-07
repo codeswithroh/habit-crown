@@ -157,7 +157,7 @@ export const HabitForm = ({ rewardId, onClose, habit }: HabitFormProps) => {
                 onClick={handleToggleSuggestions}
                 whileHover={{ scale: 1.05, rotate: 10 }}
                 whileTap={{ scale: 0.95 }}
-                className={`group relative p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-300 ${
+                className={`group relative p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-300 cursor-pointer ${
                   showSuggestions 
                     ? "text-amber-700 bg-amber-200/60 shadow-md" 
                     : "text-amber-600 hover:text-amber-700 hover:bg-amber-100/50"
@@ -232,7 +232,7 @@ export const HabitForm = ({ rewardId, onClose, habit }: HabitFormProps) => {
                       disabled={isSuggestionsLoading || remainingRequests === 0 || !suggestionInput.trim()}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-400 text-white text-sm rounded-lg sm:rounded-xl font-medium transition-all duration-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md w-full sm:w-auto"
+                      className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-400 text-white text-sm rounded-lg sm:rounded-xl font-medium transition-all duration-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md w-full sm:w-auto cursor-pointer"
                     >
                       {isSuggestionsLoading ? (
                         <>

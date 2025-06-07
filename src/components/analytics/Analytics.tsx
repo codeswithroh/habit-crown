@@ -91,7 +91,7 @@ export const Analytics = () => {
         <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-2xl border-2 border-amber-200/50 p-1 shadow-md">
           <button
             onClick={() => setViewMode("daily")}
-            className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
               viewMode === "daily"
                 ? "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
                 : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"
@@ -101,7 +101,7 @@ export const Analytics = () => {
           </button>
           <button
             onClick={() => setViewMode("weekly")}
-            className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
               viewMode === "weekly"
                 ? "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
                 : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"
@@ -362,17 +362,30 @@ export const Analytics = () => {
 
           <div className="space-y-6">
             <div className="text-center">
-              <ProgressRing
-                progress={totalPointsProgress}
-                size={120}
-                strokeWidth={8}
-                className="text-amber-500 mx-auto mb-4"
-              />
-              <p className="text-sm text-amber-600 mb-2 font-medium">Overall Progress</p>
-              <p className="text-lg font-bold text-amber-900">
-                {rewardOverview.totalPointsEarned} /{" "}
-                {rewardOverview.totalTargetPoints} points
-              </p>
+              <div className="relative inline-block">
+                <ProgressRing
+                  progress={totalPointsProgress}
+                  size={140}
+                  strokeWidth={10}
+                  className="text-amber-500"
+                  showText={false}
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <motion.div
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="text-center"
+                  >
+                    <p className="text-2xl font-bold text-amber-900 leading-none">
+                      {Math.round(totalPointsProgress)}%
+                    </p>
+                    <p className="text-xs text-amber-600 font-medium mt-1">
+                      {rewardOverview.totalPointsEarned} / {rewardOverview.totalTargetPoints}
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
+              <p className="text-sm text-amber-600 mt-4 font-medium">Overall Progress</p>
             </div>
 
             <div className="space-y-4">
