@@ -224,7 +224,7 @@ export const CompletedRewardCard = ({ reward }: CompletedRewardCardProps) => {
             onClick={() => setShowNewRewardForm(!showNewRewardForm)}
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-3 px-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 relative overflow-hidden"
+            className="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-3 px-4 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 relative overflow-hidden cursor-pointer"
           >
             <motion.div
               animate={{ rotate: [0, 5, -5, 0] }}
@@ -259,7 +259,7 @@ export const CompletedRewardCard = ({ reward }: CompletedRewardCardProps) => {
             onClick={() => setIsExpanded(!isExpanded)}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="w-full bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-800 py-3 px-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center space-x-2"
+            className="w-full bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-800 py-3 px-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center space-x-2 cursor-pointer"
           >
             <Coffee className="h-4 w-4" />
             <span>View Success Recipe ({habits.length})</span>

@@ -297,7 +297,7 @@ export const Dashboard = () => {
                     onClick={() => setRewardViewMode(mode as any)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
                       rewardViewMode === mode
                         ? "bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
                         : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"

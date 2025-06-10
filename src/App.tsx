@@ -1,11 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import { AuthLayout } from "./components/auth/AuthLayout";
+import { AuthPageLayout } from "./components/auth/AuthPageLayout";
 import { Dashboard } from "./components/layout/Dashboard";
 import { Header } from "./components/layout/Header";
 import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { Coffee, Sparkles } from "lucide-react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ForgotPasswordForm } from "./components/auth/ForgotPasswordForm";
+import { UpdatePasswordForm } from "./components/auth/UpdatePasswordForm";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -90,7 +94,7 @@ const LoadingScreen = () => (
   </div>
 );
 
-const AppContent = () => {
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -98,7 +102,7 @@ const AppContent = () => {
   }
 
   if (!user) {
-    return <AuthLayout />;
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -169,39 +173,60 @@ const AppContent = () => {
   );
 };
 
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
+  return <>{children}</>;
+};
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <AppContent />
-        <Toaster 
-          position="top-right"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: '#fef3c7',
-              color: '#92400e',
-              border: '1px solid #f59e0b',
-              borderRadius: '12px',
-              fontWeight: '500',
-              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-            },
-            success: {
+        <Router>
+          <Routes>
+            <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/login" element={<PublicRoute><AuthLayout /></PublicRoute>} />
+            <Route path="/forgot-password" element={<PublicRoute><AuthPageLayout><ForgotPasswordForm /></AuthPageLayout></PublicRoute>} />
+            <Route path="/update-password" element={<AuthPageLayout><UpdatePasswordForm /></AuthPageLayout>} />
+          </Routes>
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
               style: {
-                background: '#d1fae5',
-                color: '#065f46',
-                border: '1px solid #10b981',
+                background: '#fef3c7',
+                color: '#92400e',
+                border: '1px solid #f59e0b',
+                borderRadius: '12px',
+                fontWeight: '500',
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
               },
-            },
-            error: {
-              style: {
-                background: '#fed7d7',
-                color: '#c53030',
-                border: '1px solid #f56565',
+              success: {
+                style: {
+                  background: '#d1fae5',
+                  color: '#065f46',
+                  border: '1px solid #10b981',
+                },
               },
-            },
-          }}
-        />
+              error: {
+                style: {
+                  background: '#fed7d7',
+                  color: '#c53030',
+                  border: '1px solid #f56565',
+                },
+              },
+            }}
+          />
+        </Router>
       </AuthProvider>
     </QueryClientProvider>
   );

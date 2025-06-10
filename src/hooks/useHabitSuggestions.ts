@@ -16,14 +16,15 @@ export const useHabitSuggestions = (): UseHabitSuggestionsReturn => {
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [usageInfo, setUsageInfo] = useState<UsageInfo>({ remaining: 10, total: 10, isLimited: false });
+    const [usageInfo, setUsageInfo] = useState<UsageInfo>({ remaining: 10, total: 10, isLimited: false, used: 0, canMakeRequest: true });
 
     const { habits } = useHabits();
 
     // Update usage info on mount and when suggestions are generated
     const updateUsageInfo = useCallback(() => {
-        const info = GeminiService.getUsageInfo();
-        setUsageInfo(info);
+        GeminiService.getUsageInfo().then(info => {
+            setUsageInfo(info);
+        });
     }, []);
 
     useEffect(() => {

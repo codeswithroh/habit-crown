@@ -1,3 +1,5 @@
+import { supabase } from './supabase';
+
 // Google Gemini API configuration
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
@@ -9,71 +11,115 @@ const STORAGE_KEY = 'habitSuggestions_usage';
 export interface UsageInfo {
     remaining: number;
     total: number;
+    used: number;
     isLimited: boolean;
+    canMakeRequest: boolean;
 }
 
 class GeminiService {
-    static canMakeRequest(): boolean {
-        const today = new Date().toDateString();
-        const stored = this.getStoredUsage();
-
-        if (stored.date !== today) {
-            // New day, reset counter
+    static async canMakeRequest(): Promise<boolean> {
+        try {
+            const usageInfo = await this.getUsageInfo();
+            return usageInfo.canMakeRequest;
+        } catch (error) {
+            console.warn('Could not check AI usage limit:', error);
+            // If we can't check the limit, allow the request but it will fail later
             return true;
         }
-
-        return stored.count < DAILY_LIMIT;
     }
 
-    static getStoredUsage(): { date: string; count: number } {
+    static async getUsageInfo(): Promise<UsageInfo> {
         try {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                return JSON.parse(stored);
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                throw new Error('User not authenticated');
             }
-        } catch (error) {
-            console.warn('Could not read usage from localStorage:', error);
-        }
 
-        return { date: new Date().toDateString(), count: 0 };
-    }
+            const { data, error } = await supabase.rpc('get_ai_usage_stats', {
+                user_uuid: user.id
+            });
 
-    static incrementUsage(): number {
-        try {
-            const today = new Date().toDateString();
-            const stored = this.getStoredUsage();
+            if (error) {
+                throw error;
+            }
 
-            const newUsage = {
-                date: today,
-                count: stored.date === today ? stored.count + 1 : 1
+            return {
+                remaining: data.remaining,
+                total: data.total,
+                used: data.used,
+                isLimited: data.isLimited,
+                canMakeRequest: data.canMakeRequest
             };
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(newUsage));
-            return DAILY_LIMIT - newUsage.count;
         } catch (error) {
-            console.warn('Could not store usage in localStorage:', error);
-            return 0;
+            console.warn('Could not get AI usage info:', error);
+            // Return default values if we can't get usage info
+            return {
+                remaining: 10,
+                total: 10,
+                used: 0,
+                isLimited: false,
+                canMakeRequest: true
+            };
         }
     }
 
-    static getRemainingRequests(): number {
-        const stored = this.getStoredUsage();
-        const today = new Date().toDateString();
+    static async incrementUsage(): Promise<UsageInfo> {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
 
-        if (stored.date !== today) {
-            return DAILY_LIMIT;
+            if (!user) {
+                throw new Error('User not authenticated');
+            }
+
+            const { data, error } = await supabase.rpc('increment_ai_usage', {
+                user_uuid: user.id
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            return {
+                remaining: data.remaining,
+                total: data.total,
+                used: data.used,
+                isLimited: data.isLimited,
+                canMakeRequest: data.canMakeRequest
+            };
+        } catch (error) {
+            console.error('Could not increment AI usage:', error);
+            throw error;
         }
-
-        return Math.max(0, DAILY_LIMIT - stored.count);
     }
 
-    static getUsageInfo(): UsageInfo {
-        const remaining = this.getRemainingRequests();
-        return {
-            remaining,
-            total: DAILY_LIMIT,
-            isLimited: remaining === 0
-        };
+    static async checkUsageLimit(): Promise<UsageInfo> {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                throw new Error('User not authenticated');
+            }
+
+            const { data, error } = await supabase.rpc('check_ai_usage_limit', {
+                user_uuid: user.id
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            return {
+                remaining: data.remaining,
+                total: data.total,
+                used: data.used,
+                isLimited: data.isLimited,
+                canMakeRequest: data.canMakeRequest
+            };
+        } catch (error) {
+            console.warn('Could not check AI usage limit:', error);
+            throw error;
+        }
     }
 
     static async generateSuggestions(input: string): Promise<string[]> {
@@ -82,8 +128,10 @@ class GeminiService {
 
     static async generateSuggestionsWithContext(input: string, existingHabits: string[] = []): Promise<string[]> {
         // Check rate limit first
-        if (!this.canMakeRequest()) {
-            throw new Error('Daily AI suggestion limit reached (10/day). Using smart suggestions instead.');
+        const canMake = await this.canMakeRequest();
+        if (!canMake) {
+            const usageInfo = await this.getUsageInfo();
+            throw new Error(`Daily AI suggestion limit reached (${usageInfo.used}/${usageInfo.total}). Using smart suggestions instead.`);
         }
 
         // Check if API key is available
@@ -94,7 +142,8 @@ class GeminiService {
         try {
             const suggestions = await this.callGeminiAPIWithContext(input, existingHabits);
             if (suggestions && suggestions.length > 0) {
-                this.incrementUsage();
+                // Increment usage in database
+                await this.incrementUsage();
                 return suggestions;
             }
             throw new Error('No suggestions generated');

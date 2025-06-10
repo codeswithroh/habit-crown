@@ -303,7 +303,7 @@ export const HabitForm = ({ rewardId, onClose, habit }: HabitFormProps) => {
             disabled={isLoading}
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full sm:flex-1 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 disabled:from-gray-300 disabled:via-gray-400 disabled:to-gray-300 text-white py-2.5 sm:py-3 px-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:cursor-not-allowed text-sm relative overflow-hidden"
+            className="w-full sm:flex-1 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 disabled:from-gray-300 disabled:via-gray-400 disabled:to-gray-300 text-white py-2.5 sm:py-3 px-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:cursor-not-allowed text-sm relative overflow-hidden cursor-pointer"
           >
             <AnimatePresence mode="wait">
               {isLoading ? (
@@ -366,7 +366,7 @@ export const HabitForm = ({ rewardId, onClose, habit }: HabitFormProps) => {
             onClick={onClose}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-amber-300/60 text-amber-700 rounded-lg sm:rounded-xl hover:bg-amber-50/50 transition-all duration-300 text-sm font-medium"
+            className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-amber-300/60 text-amber-700 rounded-lg sm:rounded-xl hover:bg-amber-50/50 transition-all duration-300 text-sm font-medium cursor-pointer"
           >
             Cancel
           </motion.button>

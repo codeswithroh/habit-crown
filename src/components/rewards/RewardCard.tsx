@@ -323,35 +323,17 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                     </div>
 
                     {!showHabitForm && habits.length === 0 && !reward.is_claimed && (
-                      <motion.div 
-                        className="text-center py-6 sm:py-8"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                      >
-                        <motion.div
-                          animate={{ 
-                            rotate: [0, 10, -10, 0],
-                            scale: [1, 1.05, 1]
-                          }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                          className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-4 shadow-lg"
-                        >
-                          <Cookie className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
-                        </motion.div>
-                        <p className="text-amber-700 text-sm mb-4">
-                          No habits brewing yet! Add your first habit to start earning points.
-                        </p>
+                      
                         <motion.button
                           onClick={() => setShowHabitForm(true)}
                           whileHover={{ scale: 1.05, y: -2 }}
                           whileTap={{ scale: 0.95 }}
-                          className="flex items-center justify-center mx-auto space-x-2 text-sm font-medium bg-gradient-to-r from-amber-300 to-orange-300 hover:from-amber-400 hover:to-orange-400 text-amber-800 hover:text-white px-4 py-2 rounded-xl transition-all duration-300 shadow-md"
+                          className="flex items-center justify-center mx-auto space-x-2 text-sm font-medium bg-gradient-to-r from-amber-300 to-orange-300 hover:from-amber-400 hover:to-orange-400 text-amber-800 hover:text-white px-4 py-2 rounded-xl transition-all duration-300 shadow-md cursor-pointer"
                         >
                           <Plus className="h-4 w-4" />
                           <span>Brew Your First Habit</span>
                           <Sparkles className="h-4 w-4" />
                         </motion.button>
-                      </motion.div>
                     )}
                   </div>
                 </motion.div>

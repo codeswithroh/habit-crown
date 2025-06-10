@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LoginForm } from "./LoginForm";
-import { SignUpForm } from "./SignUpForm";
+import React from "react";
+import { motion } from "framer-motion";
 import { Coffee, Heart, Sparkles, Cookie, Croissant } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
-export const AuthLayout: React.FC = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const navigate = useNavigate();
+interface AuthPageLayoutProps {
+  children: React.ReactNode;
+}
 
-  const handleSwitchToSignUp = () => setIsSignUp(true);
-  const handleSwitchToLogin = () => setIsSignUp(false);
-  const handleForgotPassword = () => navigate("/forgot-password");
-
+export const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4 relative overflow-hidden">
       {/* Floating coffee beans and pastries */}
@@ -22,14 +16,14 @@ export const AuthLayout: React.FC = () => {
             key={`float-${i}`}
             className="absolute opacity-20"
             initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 50,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+              y: (typeof window !== 'undefined' ? window.innerHeight : 800) + 50,
               rotate: 0
             }}
             animate={{ 
               y: -50,
               rotate: 360,
-              x: Math.random() * window.innerWidth
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200)
             }}
             transition={{
               duration: 15 + Math.random() * 10,
@@ -189,7 +183,7 @@ export const AuthLayout: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right side - Auth Forms */}
+          {/* Right side - Auth Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -248,39 +242,13 @@ export const AuthLayout: React.FC = () => {
                 </div>
 
                 {/* Form container */}
-                <AnimatePresence mode="wait">
-                  {isSignUp ? (
-                    <motion.div
-                      key="signup"
-                      initial={{ opacity: 0, x: 30, rotateY: -10 }}
-                      animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                      exit={{ opacity: 0, x: -30, rotateY: 10 }}
-                      transition={{ 
-                        duration: 0.4,
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 25
-                      }}
-                    >
-                      <SignUpForm onSwitchToLogin={handleSwitchToLogin} />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="login"
-                      initial={{ opacity: 0, x: -30, rotateY: 10 }}
-                      animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                      exit={{ opacity: 0, x: 30, rotateY: -10 }}
-                      transition={{ 
-                        duration: 0.4,
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 25
-                      }}
-                    >
-                      <LoginForm onSwitchToSignUp={handleSwitchToSignUp} onForgotPassword={handleForgotPassword} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  {children}
+                </motion.div>
               </motion.div>
 
               {/* Social proof */}
@@ -369,4 +337,4 @@ export const AuthLayout: React.FC = () => {
       </div>
     </div>
   );
-};
+}; 
