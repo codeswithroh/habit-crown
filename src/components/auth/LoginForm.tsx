@@ -29,7 +29,41 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp, onForgot
       await signIn(email, password);
       toast.success("Welcome back to the cafe! ☕");
     } catch (error: any) {
-      toast.error(error.message || "Invalid email or password");
+      const errorMessage = error.message || "";
+      console.log("Login error details:", error); // For debugging
+      
+      if (errorMessage.toLowerCase().includes("invalid login credentials")) {
+        // Show immediate error
+        toast.error("Invalid login credentials", {
+          duration: 3000,
+          icon: "❌",
+        });
+        
+        // Show helpful follow-up message after a short delay
+        setTimeout(() => {
+          toast((t) => (
+            <div className="flex flex-col space-y-2">
+              <span className="font-medium">Not signed up yet?</span>
+              <button
+                onClick={() => {
+                  toast.dismiss(t.id);
+                  onSwitchToSignUp();
+                }}
+                className="px-3 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm cursor-pointer"
+              >
+                Go to Sign Up →
+              </button>
+            </div>
+          ), {
+            duration: 6000,
+            icon: "💡",
+          });
+        }, 1500);
+      } else if (errorMessage.toLowerCase().includes("email not confirmed")) {
+        toast.error("Please check your email and confirm your account");
+      } else {
+        toast.error(errorMessage || "Login failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -237,7 +271,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp, onForgot
       >
         <motion.button
           onClick={onSwitchToSignUp}
-          className="text-amber-600 hover:text-amber-800 font-medium transition-colors relative group cursor-pointer"
+          className="text-amber-600 hover:text-amber-800 font-medium transition-colors relative group cursor-pointer cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -254,7 +288,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignUp, onForgot
 
         <motion.button 
           onClick={onForgotPassword}
-          className="block text-sm text-amber-500 hover:text-amber-700 transition-colors mx-auto cursor-pointer"
+          className="block text-sm text-amber-500 hover:text-amber-700 transition-colors mx-auto cursor-pointer cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

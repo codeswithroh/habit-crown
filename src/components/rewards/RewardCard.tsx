@@ -127,7 +127,7 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                 onClick={() => setShowEditForm(true)}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="p-1.5 sm:p-2 text-amber-400 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg sm:rounded-xl transition-all duration-300"
+                className="p-1.5 sm:p-2 text-amber-400 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg sm:rounded-xl transition-all duration-300 cursor-pointer"
                 title="Edit recipe"
               >
                 <Edit className="h-4 w-4" />
@@ -137,7 +137,7 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
                 disabled={isDeleting}
                 whileHover={{ scale: 1.1, rotate: -5 }}
                 whileTap={{ scale: 0.95 }}
-                className="p-1.5 sm:p-2 text-amber-400 hover:text-red-500 hover:bg-red-100/50 rounded-lg sm:rounded-xl transition-all duration-300 disabled:opacity-50"
+                className="p-1.5 sm:p-2 text-amber-400 hover:text-red-500 hover:bg-red-100/50 rounded-lg sm:rounded-xl transition-all duration-300 disabled:opacity-50 cursor-pointer"
                 title="Remove from menu"
               >
                 <Trash2 className="h-4 w-4" />
@@ -208,7 +208,7 @@ export const RewardCard = ({ reward }: RewardCardProps) => {
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleClaim}
-              className="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-3 sm:py-4 px-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl mb-4 flex items-center justify-center space-x-2 sm:space-x-3 relative overflow-hidden"
+              className="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 hover:from-amber-500 hover:via-orange-500 hover:to-amber-500 text-white py-3 sm:py-4 px-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl mb-4 flex items-center justify-center space-x-2 sm:space-x-3 relative overflow-hidden cursor-pointer"
             >
               <motion.div
                 animate={{ rotate: [0, 360] }}
