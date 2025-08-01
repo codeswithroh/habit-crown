@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lofi Music Player</title>
+    <link rel="stylesheet" href="lofi-player.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="player-wrapper">
+            <header class="header">
+                <h1><i class="fas fa-music"></i> Lofi Music Player</h1>
+                <p>Chill beats for focus and relaxation</p>
+            </header>
+
+            <div class="current-station">
+                <div class="station-info">
+                    <div class="station-name" id="stationName">Select a station to start</div>
+                    <div class="station-genre" id="stationGenre"></div>
+                </div>
+                <div class="visualizer">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" id="prevBtn" title="Previous Station">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-pause" id="playPauseBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="nextBtn" title="Next Station">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+
+            <div class="volume-control">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider">
+                <i class="fas fa-volume-up"></i>
+            </div>
+
+            <div class="stations-section">
+                <h3>Available Lofi Stations</h3>
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading stations...
+                </div>
+                <div class="stations-grid" id="stationsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="none"></audio>
+    <script src="lofi-player.js"></script>
+</body>
+</html>

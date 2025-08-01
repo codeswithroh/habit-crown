@@ -4,6 +4,7 @@ import { RewardCard } from "../rewards/RewardCard";
 import { CompletedRewardCard } from "../rewards/CompleteRewardCard";
 import { RewardForm } from "../rewards/RewardForm";
 import { Analytics } from "../analytics/Analytics";
+import { LofiPlayer } from "../music/LofiPlayer";
 import { 
   Plus, 
   BarChart3, 
@@ -14,14 +15,15 @@ import {
   Zap,
   Sparkles,
   Heart,
-  Cookie
+  Cookie,
+  Music
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Dashboard = () => {
   const { rewards, isLoading } = useRewards();
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [activeTab, setActiveTab] = useState<"rewards" | "analytics">("rewards");
+  const [activeTab, setActiveTab] = useState<"rewards" | "analytics" | "music">("rewards");
   const [rewardViewMode, setRewardViewMode] = useState<"active" | "completed" | "all">("active");
 
   if (isLoading) {
@@ -124,6 +126,35 @@ export const Dashboard = () => {
             <BarChart3 className="h-4 w-4" />
             <span>Progress</span>
             {activeTab === "analytics" && (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="w-2 h-2 bg-amber-600 rounded-full"
+              />
+            )}
+          </motion.button>
+          
+          <motion.button
+            onClick={() => setActiveTab("music")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer ${
+              activeTab === "music"
+                ? "bg-gradient-to-r from-amber-200 to-orange-200 text-amber-800 shadow-md"
+                : "text-amber-600 hover:text-amber-800 hover:bg-amber-50"
+            }`}
+          >
+            <motion.div
+              animate={activeTab === "music" ? { 
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              } : {}}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Music className="h-4 w-4" />
+            </motion.div>
+            <span>Lofi Music</span>
+            {activeTab === "music" && (
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -629,7 +660,7 @@ export const Dashboard = () => {
               </motion.div>
             )}
           </motion.div>
-        ) : (
+        ) : activeTab === "analytics" ? (
           <motion.div
             key="analytics"
             initial={{ opacity: 0, x: 20 }}
@@ -638,6 +669,16 @@ export const Dashboard = () => {
             transition={{ duration: 0.3 }}
           >
             <Analytics />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="music"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <LofiPlayer />
           </motion.div>
         )}
       </AnimatePresence>
