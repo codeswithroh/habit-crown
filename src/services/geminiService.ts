@@ -4,10 +4,6 @@ import { supabase } from './supabase';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-// Rate limiting: 10 requests per user per day
-const DAILY_LIMIT = 10;
-const STORAGE_KEY = 'habitSuggestions_usage';
-
 export interface UsageInfo {
     remaining: number;
     total: number;

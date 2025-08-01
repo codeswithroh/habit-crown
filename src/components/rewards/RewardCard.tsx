@@ -15,7 +15,6 @@ import {
   ChevronDown,
   Coffee,
   Sparkles,
-  Cookie,
   Star
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
